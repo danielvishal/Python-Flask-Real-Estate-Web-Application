@@ -35,3 +35,15 @@ def about():
         year=datetime.now().year,
         message='Your application description page.'
     )
+
+@app.route('/login')
+def login():         
+   # username = request.form['Username']
+    #password = request.form['password']
+    fhand = open("login.txt",mode='w')
+    #fhand.write(username+"|"+password)
+    fhand.close()
+    return render_template(
+             'login.html',
+             title='About'
+             )

@@ -40,6 +40,8 @@
     <Folder Include="RealEstate_Flask\templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="RealEstate_Flask\static\content\style.css" />
+    <Content Include="RealEstate_Flask\templates\login.html" />
     <Content Include="requirements.txt" />
     <Content Include="RealEstate_Flask\static\content\bootstrap.css" />
     <Content Include="RealEstate_Flask\static\content\bootstrap.min.css" />

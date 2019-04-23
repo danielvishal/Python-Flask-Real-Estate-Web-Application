@@ -3,7 +3,7 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template
+from flask import render_template, request, Flask
 from RealEstate_Flask import app
 
 @app.route('/')
@@ -38,12 +38,19 @@ def about():
 
 @app.route('/login')
 def login():         
-   # username = request.form['Username']
-    #password = request.form['password']
-    fhand = open("login.txt",mode='w')
-    #fhand.write(username+"|"+password)
-    fhand.close()
     return render_template(
              'login.html',
              title='About'
              )
+
+@app.route('/login',methods=['POST'])
+def login_post():         
+    username = request.form['Username']
+    password = request.form['password']
+    fhand = open("login.txt",mode='a')
+    fhand.write(username+"|"+password)
+    fhand.close()
+    return render_template(
+             'login.html',
+             title='About'
+             ) 

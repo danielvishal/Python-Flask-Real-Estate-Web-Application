@@ -36,21 +36,37 @@ def about():
         message='Your application description page.'
     )
 
-@app.route('/login')
+@app.route('/page-login')
 def login():         
     return render_template(
-             'login.html',
+             'page-login.html',
              title='About'
              )
 
-@app.route('/login',methods=['POST'])
+@app.route('/page-login',methods=['POST'])
 def login_post():         
     username = request.form['Username']
     password = request.form['password']
-    fhand = open("login.txt",mode='a')
-    fhand.write(username+"|"+password)
-    fhand.close()
-    return render_template(
-             'login.html',
+    fhand = open("AdminLogin.txt",mode='r')
+    for line in fhand:
+        user_txt,pass_txt=line.split("|")
+        if(user_txt!=username):
+            continue
+        if(password==pass_txt.strip()):
+            return render_template(
+             'index.html',
              title='About'
              ) 
+        else:
+            fhand.close()
+            return render_template(
+             'page-login.html',
+             title='About'
+             ) 
+    else:
+        fhand.close()
+        return render_template(
+             'page-login.html',
+             title='About'
+             ) 
+    

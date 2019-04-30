@@ -26,6 +26,17 @@ def contact():
         message='Your contact page.'
     )
 
+@app.route('/search')
+def search():
+    """Renders the contact page."""
+    return render_template(
+        'search.html',
+        title='Contact',
+        year=datetime.now().year,
+        message='Your contact page.'
+    )
+
+
 @app.route('/about')
 def about():
     """Renders the about page."""

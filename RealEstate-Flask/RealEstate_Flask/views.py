@@ -108,7 +108,6 @@ def addland():
 
 @app.route('/addland',methods=['POST'])
 def addland_post():
- 
     location = request.form['location']
     price = int(request.form['price'])
     size = int(request.form['size'])

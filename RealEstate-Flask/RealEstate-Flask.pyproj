@@ -3173,9 +3173,13 @@
     <Content Include="RealEstate_Flask\templates\.editorconfig" />
     <Content Include="RealEstate_Flask\templates\.gitattributes" />
     <Content Include="RealEstate_Flask\templates\.gitignore" />
+    <Content Include="RealEstate_Flask\templates\addland.html" />
+    <Content Include="RealEstate_Flask\templates\admin.html" />
+    <Content Include="RealEstate_Flask\templates\adminindex.html" />
     <Content Include="RealEstate_Flask\templates\bower.json" />
     <Content Include="RealEstate_Flask\templates\favicon.ico" />
     <Content Include="RealEstate_Flask\templates\gruntfile.js" />
+    <Content Include="RealEstate_Flask\templates\land.html" />
     <Content Include="RealEstate_Flask\templates\package.json" />
     <Content Include="RealEstate_Flask\templates\page-login.html" />
     <Content Include="RealEstate_Flask\templates\page-register.html" />

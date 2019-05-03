@@ -6,6 +6,7 @@ from datetime import datetime
 from flask import render_template, request, Flask
 from RealEstate_Flask import app
 import pandas as pd
+import shutil
 
 
 
@@ -113,13 +114,30 @@ def addland_post():
     size = int(request.form['size'])
     cost=price*size
 
-    df=pd.read_csv("land.csv",index_col=0)
+    df=pd.read_csv("land.csv")
+    num=len(df.index)
     loca=location.strip().upper()
-    index=int("".join(str(ord(c)) for c in loca))
-    dic={'Location':location,'Price':price,'Size':size,'Cost':cost}
-    add=pd.DataFrame(dic,index=[index])
+    index="".join(str(ord(c)) for c in loca[1:])
+    index=loca[0]+index+str(size)
+    dic={'Index':index,'Location':location,'Price':price,'Size':size,'Cost':cost}
+    add=pd.DataFrame(dic,index=[num])
     df=df.append(add)
-    df.to_csv("land.csv")
+    df.to_csv("land.csv",index=False)
+    shutil.copy('landindex.txt','temp.txt')
+    fhand=open("temp.txt",'r')
+    find=open("landindex.txt",'w')
+    for line in fhand:
+        ind,add=line.split("|")
+        if(index>ind):
+            find.write(line)
+        else:
+            find.write(index+'|'+str(num)+'\n')
+            find.write(line)
+            for line in fhand:
+                find.write(line)
+            break
+    fhand.close()
+    find.close()
 
     return render_template(
         'index.html'

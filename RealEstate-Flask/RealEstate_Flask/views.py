@@ -27,8 +27,7 @@ def contact():
         'contact.html',
         title='Contact',
         year=datetime.now().year,
-        message='Your contact page.',
-        i=[1,2,3,4]
+        message='Your contact page.'
     )
 
 @app.route('/land')
@@ -39,6 +38,20 @@ def land():
     """Renders the contact page."""
     return render_template(
         'land.html',
+        num=num,
+        df=df,
+        loca=loca,
+        num_loca=len(loca)
+    )
+
+@app.route('/buyhome')
+def buyhome():
+    df=pd.read_csv("buyhome.csv")
+    num=len(df.index)
+    loca=df.Location.unique().tolist()
+    """Renders the contact page."""
+    return render_template(
+        'buyhome.html',
         num=num,
         df=df,
         loca=loca,
@@ -152,4 +165,49 @@ def displand():
         'displand.html',
         df=df,
         num=num
+    )
+
+@app.route('/addhome')
+def addhome():
+    """Renders the addland page."""
+    return render_template(
+        'addhome.html'
+    )
+
+@app.route('/addhome',methods=['POST'])
+def addhome_post():
+    number = request.form['houseno']
+    name = request.form['housename']
+    location = request.form['location']
+    price = request.form['price']
+    bed = request.form['bed']
+    bath = request.form['bath']
+    
+
+    df=pd.read_csv("buyhome.csv")
+    num=len(df.index)
+    hname=name.strip().upper().replace(" ","")
+    index=str(number)+str(hname)
+    dic={'Index':index,'Number':number,'Name':name,'Location':location,'Price':price,'Bed':bed,'Bath':bath}
+    add=pd.DataFrame(dic,index=[num])
+    df=df.append(add)
+    df.to_csv("buyhome.csv",index=False)
+    shutil.copy('buyhomeindex.txt','temp.txt')
+    fhand=open("temp.txt",'r')
+    find=open("buyhomeindex.txt",'w')
+    for line in fhand:
+        ind,add=line.split("|")
+        if(index>ind):
+            find.write(line)
+        else:
+            find.write(index+'|'+str(num)+'\n')
+            find.write(line)
+            for line in fhand:
+                find.write(line)
+            break
+    fhand.close()
+    find.close()
+
+    return render_template(
+        'index.html'
     )

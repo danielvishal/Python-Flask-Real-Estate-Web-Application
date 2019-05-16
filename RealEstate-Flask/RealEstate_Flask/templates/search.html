@@ -30,24 +30,119 @@
                     <div class="col-md-5 ml-auto" data-aos="fade-up" data-aos-delay="200">
                         <div class="site-section-title">
                         </div>
-                        <p><a href="#" class="btn btn-outline-primary rounded-2 py-3 px-5">Buy</a></p>
+                        <p><a id='Buy_Btn' class="btn btn-outline-primary rounded-2 py-3 px-5">Buy</a></p>
                     </div>
                     <div class="col-md-5 ml-auto" data-aos="fade-up" data-aos-delay="200">
                         <div class="site-section-title">
                         </div>
-                        <p><a href="#" class="btn btn-outline-primary rounded-2 py-3 px-5">Rent</a></p>
+                        <p><a id='Rent_Btn' class="btn btn-outline-primary rounded-2 py-3 px-5">Rent</a></p>
                     </div>
                 </div>
             </div>
         </div>
+		
 
-        <div id='Buy'>
+	<style type="text/css">
+   .hidden {
+        display: none;
+   {
+   .visible {
+        display: block;
+   }
+</style>
+		<form method='post'>
+	     <div id='Buy' class="visible">
+		 
+		 <div class="row form-group">
+                                                                    <div class="col col-md-5" align="center"><label for="select" class=" form-control-label">Listing Type</label></div>
+                                                                    <div class="col-12 col-md-5">
+                                                                        <select name="BuyType" id="BuyType" class="form-control">
+                                                                            <option value="0">Select </option>
+                                                                            <option value="1">Land</option>
+                                                                            <option value="2">House</option>
+                                                                        </select>
+                                                                    </div>
+																	<p><a id='Blist' class="btn btn-outline-primary rounded-2 py-1 px-1">Select</a></p>
+                                                                
+			</div>													
+		 <div id='buyland' class="hidden">
 		<div class="row form-group">
-                                    <div class="col col-md-5" align="center"><label for="text-input" class=" form-control-label" >Location</label></div>
-                                    <div class="col-12 col-md-5"><input type="text" id="location" name="location" placeholder="Text" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+		
+                                    <div class="col col-md-5" align="center"><label for="text-input" class=" form-control-label" >Land Location</label></div>
+                                    <div class="col-12 col-md-5"><input type="text" id="llocation" name="llocation" placeholder="Text" class="form-control"><small class="form-text text-muted">Enter the location of the land</small></div>
+									
+									<div class="col col-md-5" align="center"><label for="text-input" class=" form-control-label" >Size</label></div>
+                                    <div class="col-12 col-md-5"><input type="number" id="lsize" name="lsize" placeholder="Text" class="form-control"><small class="form-text text-muted">Enter the size of the land</small></div>
+                                </div>
+					</div>
+
+			 <div id='buyhouse' class="hidden">
+		<div class="row form-group">
+		
+                                    <div class="col col-md-5" align="center"><label for="text-input" class=" form-control-label" >House Number</label></div>
+                                    <div class="col-12 col-md-5"><input type="number" id="bhnumber" name="bhnumber" placeholder="Text" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+									
+									<div class="col col-md-5" align="center"><label for="text-input" class=" form-control-label" >House Name</label></div>
+                                    <div class="col-12 col-md-5"><input type="text" id="bhname" name="bhname" placeholder="Text" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                </div>
+					</div>
+					<div class="col col-md-12" align="center">
+					<button type="submit" class="btn btn-outline-primary rounded-2 py-2 px-3" align="center">
+                                    <i ></i> Submit
+                                </button>
+								</div>
+			
+</div>					
+								
+ 
+</form> 
+        
+		<div id='Rent' class="hidden">
+		<div class="row form-group">
+                                    <div class="col col-md-5" align="center"><label for="text-input" class=" form-control-label" >LocationR</label></div>
+                                    <div class="col-12 col-md-5"><input type="text" id="locati" name="locat" placeholder="Text" class="form-control"><small class="form-text text-muted"></small></div>
                                 </div>
             
         </div>
+		
+<script type="text/javascript">
+
+    var buy = document.getElementById('Buy');
+    var rent = document.getElementById('Rent');
+	
+	var buland = document.getElementById('buyland');
+	var buhouse = document.getElementById('buyhouse');
+	
+    var buyBtn = document.getElementById('Buy_Btn');
+    var rentBtn = document.getElementById('Rent_Btn');
+	var b_list = document.getElementById('Blist');
+
+    buyBtn.onclick = function() {
+        rent.setAttribute('class', 'hidden');
+        buy.setAttribute('class', 'visible');
+    };
+
+    rentBtn.onclick = function() {
+        buy.setAttribute('class', 'hidden');
+        rent.setAttribute('class', 'visible');
+    };
+	
+	b_list.onclick = function() {
+		var v = document.getElementById('BuyType').value
+		if(v==1){
+			buhouse.setAttribute('class', 'hidden');
+			buland.setAttribute('class', 'visible');
+		}
+		else{
+			buland.setAttribute('class', 'hidden');
+			buhouse.setAttribute('class', 'visible');
+		}
+	};	
+	
+
+</script>
+		
+   
 		
 
 

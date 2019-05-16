@@ -66,6 +66,51 @@ def search():
         
     )
 
+@app.route('/search',methods=['POST'])
+def search_post():
+    llocation = request.form['llocation'] 
+    lsize = request.form['lsize'] 
+    bhnumber = request.form['bhnumber'] 
+    bhname = request.form['bhname'] 
+    btype = request.form['BuyType']
+    
+    if(btype=='1'):
+        lloca=llocation.strip().upper().replace(" ","")
+        index="".join(str(ord(c)) for c in lloca[1:])
+        index=llocation[0]+index+str(lsize)
+        bdf = pd.read_csv("land.csv",index_col=0)
+        try:
+            print(bdf.loc[index])
+        except:
+            return render_template(
+            'search.html',
+        )
+        return render_template(
+                'searchdisplay.html',
+                bdf=bdf,
+                num=1
+        )
+
+    if(btype=='2'):
+        bhname=bhname.strip().upper().replace(" ","")
+        index=str(bhnumber)+str(bhname)
+        hdf=pd.read_csv("buyhome.csv",index_col=2)
+        try:
+            print(hdf.loc[index])
+        except:
+            return render_template(
+            'search.html',
+        )
+        return render_template(
+                'searchdisplayhome.html',
+                hdf=hdf,
+                num=1
+        )
+
+    """Renders the contact page."""    
+    return render_template(
+                'search.html'
+    )
 
 @app.route('/about')
 def about():
@@ -122,10 +167,10 @@ def addland():
 
 @app.route('/addland',methods=['POST'])
 def addland_post():
-    location = request.form['location']
-    price = int(request.form['price'])
+    location = request.form['location'] 
+    price = request.form['price'] != None
     size = int(request.form['size'])
-    cost=price*size
+    cost=int(price)*size
 
     df=pd.read_csv("land.csv")
     num=len(df.index)
@@ -167,6 +212,38 @@ def displand():
         num=num
     )
 
+@app.route('/deleteland')
+def deleteland():
+    """Renders the addland page."""
+    return render_template(
+        'deleteland.html',
+    )
+
+@app.route('/deleteland' , methods=['POST'])
+def deleteland_post():
+    location = request.form['location']
+    size = int(request.form['size'])
+
+    loca=location.strip().upper()
+    index="".join(str(ord(c)) for c in loca[1:])
+    index=loca[0]+index+str(size)
+    df=pd.read_csv("land.csv")
+    df=df[df.Index != index]
+    df.to_csv("land.csv",index=False)
+    ind=list(df.Index)
+    num=list(df.index)
+    dic=dict(zip(ind,num))
+    fhind=open('landindex.txt','w')
+    for i in sorted(dic) : 
+        fhind.write(str(i)+'|'+str(dic[i])+'\n')
+    fhind.close()
+
+    """Renders the addland page."""
+    return render_template(
+        'deleteland.html',
+    )
+
+
 @app.route('/addhome')
 def addhome():
     """Renders the addland page."""
@@ -195,6 +272,98 @@ def addhome_post():
     shutil.copy('buyhomeindex.txt','temp.txt')
     fhand=open("temp.txt",'r')
     find=open("buyhomeindex.txt",'w')
+    for line in fhand:
+        ind,add=line.split("|")
+        if(index>ind):
+            find.write(line)
+        else:
+            find.write(index+'|'+str(num)+'\n')
+            find.write(line)
+            for line in fhand:
+                find.write(line)
+            break
+    fhand.close()
+    find.close()
+
+    return render_template(
+        'index.html'
+    )
+	
+	
+@app.route('/addbuild')
+def addbuild():
+    """Renders the addland page."""
+    return render_template(
+        'addbuild.html'
+    )
+
+@app.route('/addbuild',methods=['POST'])
+def addbuild_post():
+    number = request.form['buildno']
+    name = request.form['buildname']
+    location = request.form['location']
+    price = request.form['price']
+    size = request.form['size']
+    road = request.form['road']
+    
+
+    df=pd.read_csv("build.csv")
+    num=len(df.index)
+    hname=name.strip().upper().replace(" ","")
+    index=str(number)+str(hname)
+    dic={'Index':index,'Number':number,'Name':name,'Location':location,'Price':price,'Size':size,'Main_Road_Access':road}
+    add=pd.DataFrame(dic,index=[num])
+    df=df.append(add)
+    df.to_csv("build.csv",index=False)
+    shutil.copy('buildindex.txt','temp.txt')
+    fhand=open("temp.txt",'r')
+    find=open("buildindex.txt",'w')
+    for line in fhand:
+        ind,add=line.split("|")
+        if(index>ind):
+            find.write(line)
+        else:
+            find.write(index+'|'+str(num)+'\n')
+            find.write(line)
+            for line in fhand:
+                find.write(line)
+            break
+    fhand.close()
+    find.close()
+
+    return render_template(
+        'index.html'
+    )
+
+@app.route('/addapart')
+def addapart():
+    """Renders the addland page."""
+    return render_template(
+        'addapart.html'
+    )
+
+@app.route('/addapart',methods=['POST'])
+def addapart_post():
+    number = request.form['apartno']
+    name = request.form['apartname']
+    location = request.form['location']
+    price = request.form['price']
+    bed = request.form['bed']
+    bath = request.form['bath']
+    floor = request.form['floor']
+    
+
+    df=pd.read_csv("apart.csv")
+    num=len(df.index)
+    hname=name.strip().upper().replace(" ","")
+    index=str(number)+str(hname)
+    dic={'Index':index,'Number':number,'Name':name,'Location':location,'Rent':price,'Bed':bed,'Bath':bath,'Apartment_Floor':floor}
+    add=pd.DataFrame(dic,index=[num])
+    df=df.append(add)
+    df.to_csv("apart.csv",index=False)
+    shutil.copy('apartindex.txt','temp.txt')
+    fhand=open("temp.txt",'r')
+    find=open("apartindex.txt",'w')
     for line in fhand:
         ind,add=line.split("|")
         if(index>ind):

@@ -1,0 +1,129 @@
+{% extends "admin.html" %}
+
+{% block content %}
+        <!-- Header-->
+
+        <div class="breadcrumbs">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Rent</a></li>
+                            <li class="active">Commercial Building</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content mt-3">
+                <div class="animated fadeIn">
+
+        
+                                            <div class="col-lg-10">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <strong>Building</strong> Details
+                                                    </div>
+													<form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                                    <div class="card-body card-block">
+                                                        
+														
+															<div class="row form-group">
+                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">Building Number</label></div>
+                                                                <div class="col-12 col-md-9"><input type="number" id="buildno" name="buildno" placeholder="Number" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                                            </div>
+                                                            
+                                                            <div class="row form-group">
+                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">Building Name</label></div>
+                                                                <div class="col-12 col-md-9"><input type="text" id="buildname" name="buildname" placeholder="Name" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                                            </div>
+
+                                                            <div class="row form-group">
+                                                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Location</label></div>
+                                                                    <div class="col-12 col-md-9"><input type="text" id="location" name="location" placeholder="Text" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                                            </div>
+
+                                                            <div class="row form-group">
+                                                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Rent/Month</label></div>
+                                                                    <div class="col-12 col-md-9"><input type="number" id="price" name="price" placeholder="Text" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                                            </div>
+															
+															<div class="row form-group">
+                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">Size</label></div>
+                                                                <div class="col-12 col-md-9"><input type="text" id="size" name="size" placeholder="in Sqft" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                                            </div>
+                    
+                                            
+                                                                <div class="row form-group">
+                                                                    <div class="col col-md-3"><label for="select" class=" form-control-label">Main Road Access</label></div>
+                                                                    <div class="col-12 col-md-9">
+                                                                        <select name="road" id="road" class="form-control">
+                                                                            <option value="No">Select </option>
+                                                                            <option value="Yes">Yes</option>
+                                                                            <option value="No">No</option>
+                                                                          
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                           
+                                                                
+                                                                
+                                                                
+                                                                <!-- <div class="row form-group">
+                                                                    <div class="col col-md-3"><label class=" form-control-label">Amenities</label></div>
+                                                                    <div class="col col-md-9">
+                                                                        <div class="form-check">
+                                                                            <div class="checkbox">
+                                                                                <label for="checkbox1" class="form-check-label ">
+                                                                                    <input type="checkbox" id="checkbox1" name="checkbox1" value="Yes" class="form-check-input">School
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="checkbox">
+                                                                                <label for="checkbox2" class="form-check-label ">
+                                                                                    <input type="checkbox" id="checkbox2" name="checkbox2" value="Yes" class="form-check-input"> Water
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="checkbox">
+                                                                                <label for="checkbox3" class="form-check-label ">
+                                                                                    <input type="checkbox" id="checkbox3" name="checkbox3" value="Yes" class="form-check-input"> Hospital
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> -->
+                                                                
+                                                    
+                                                        
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <button type="submit" class="btn btn-primary btn-sm">
+                                                            <i class="fa fa-dot-circle-o"></i> Submit
+                                                        </button>
+                                                        <button type="reset" class="btn btn-danger btn-sm">
+                                                            <i class="fa fa-ban"></i> Reset
+                                                        </button>
+                                                    </div>
+													</form>
+                                                </div>
+                                                
+                                            </div>
+
+                                            
+                                               
+
+                                    </div><!-- .content -->
+                                </div><!-- /#right-panel -->
+                                <!-- Right Panel -->
+
+
+                            {% endblock %}

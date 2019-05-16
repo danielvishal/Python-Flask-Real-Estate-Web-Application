@@ -35,7 +35,7 @@ def land():
     df=pd.read_csv("land.csv",index_col=0)
     num=len(df.index)
     loca=df.Location.unique().tolist()
-    """Renders the contact page."""
+    
     return render_template(
         'land.html',
         num=num,
@@ -52,6 +52,34 @@ def buyhome():
     """Renders the contact page."""
     return render_template(
         'buyhome.html',
+        num=num,
+        df=df,
+        loca=loca,
+        num_loca=len(loca)
+    )
+
+@app.route('/apart')
+def apart():
+    df=pd.read_csv("apart.csv",index_col=0)
+    num=len(df.index)
+    loca=df.Location.unique().tolist()
+    """Renders the contact page."""
+    return render_template(
+        'apart.html',
+        num=num,
+        df=df,
+        loca=loca,
+        num_loca=len(loca)
+    )
+
+@app.route('/build')
+def build():
+    df=pd.read_csv("build.csv",index_col=0)
+    num=len(df.index)
+    loca=df.Location.unique().tolist()
+    """Renders the contact page."""
+    return render_template(
+        'build.html',
         num=num,
         df=df,
         loca=loca,
@@ -157,6 +185,32 @@ def login_post():
   
     
 #ADMIN PAGES
+
+@app.route('/page-register')
+def register():         
+    return render_template(
+             'page-register.html',
+             )
+@app.route('/page-register',methods=['POST'])
+def register_post():         
+    username = request.form['Username']
+    password = request.form['password']
+
+    fadmin=open("AdminLogin.txt",'r+')
+    userlist=[]
+    for line in fadmin:
+        user_txt,pass_txt=line.split("|")
+        userlist.append(user_txt)
+    if (username in userlist):
+        print("Username already exists")
+    else:
+        fadmin.write("\n"+username+"|"+password)
+        print("Successfully Added")
+    fadmin.close()
+
+    return render_template(
+        'page-register.html',
+    )
 
 @app.route('/addland')
 def addland():
@@ -288,8 +342,47 @@ def addhome_post():
     return render_template(
         'index.html'
     )
-	
-	
+
+@app.route('/disphome')
+def disphome():
+    df=pd.read_csv("buyhome.csv")
+    num=len(df.index)
+
+    return render_template(
+        'disphome.html',
+        df=df,
+        num=num
+    )
+
+@app.route('/deletehome')
+def deletehome():
+    """Renders the addland page."""
+    return render_template(
+        'deletehome.html',
+    )
+
+@app.route('/deletehome' , methods=['POST'])
+def deletehome_post():
+    number = request.form['number']
+    name = request.form['name']
+
+    hname=name.strip().upper().replace(" ","")
+    index=str(number)+str(hname)
+    df=pd.read_csv("buyhome.csv")
+    df=df[df.Index != index]
+    df.to_csv("buyhome.csv",index=False)
+    ind=list(df.Index)
+    num=list(df.index)
+    dic=dict(zip(ind,num))
+    fhind=open('buyhomeindex.txt','w')
+    for i in sorted(dic) : 
+        fhind.write(str(i)+'|'+str(dic[i])+'\n')
+    fhind.close()
+
+    return render_template(
+        'deletehome.html',
+    )
+
 @app.route('/addbuild')
 def addbuild():
     """Renders the addland page."""
@@ -333,6 +426,46 @@ def addbuild_post():
 
     return render_template(
         'index.html'
+    )
+
+@app.route('/dispbuild')
+def dispbuild():
+    df=pd.read_csv("build.csv",index_col=0)
+    num=len(df.index)
+
+    return render_template(
+        'dispbuild.html',
+        df=df,
+        num=num
+    )
+
+@app.route('/deletebuild')
+def deletebuild():
+    """Renders the addland page."""
+    return render_template(
+        'deletebuild.html',
+    )
+
+@app.route('/deletebuild' , methods=['POST'])
+def deletebuild_post():
+    number = request.form['number']
+    name = request.form['name']
+
+    hname=name.strip().upper().replace(" ","")
+    index=str(number)+str(hname)
+    df=pd.read_csv("build.csv")
+    df=df[df.Index != index]
+    df.to_csv("build.csv",index=False)
+    ind=list(df.Index)
+    num=list(df.index)
+    dic=dict(zip(ind,num))
+    fhind=open('buildindex.txt','w')
+    for i in sorted(dic) : 
+        fhind.write(str(i)+'|'+str(dic[i])+'\n')
+    fhind.close()
+
+    return render_template(
+        'deletebuild.html',
     )
 
 @app.route('/addapart')
@@ -379,4 +512,44 @@ def addapart_post():
 
     return render_template(
         'index.html'
+    )
+
+@app.route('/dispapart')
+def dispapart():
+    df=pd.read_csv("apart.csv",index_col=0)
+    num=len(df.index)
+
+    return render_template(
+        'dispapart.html',
+        df=df,
+        num=num
+    )
+
+@app.route('/deleteapart')
+def deleteapart():
+    """Renders the addland page."""
+    return render_template(
+        'deleteapart.html',
+    )
+
+@app.route('/deleteapart' , methods=['POST'])
+def deleteapart_post():
+    number = request.form['number']
+    name = request.form['name']
+
+    hname=name.strip().upper().replace(" ","")
+    index=str(number)+str(hname)
+    df=pd.read_csv("apart.csv")
+    df=df[df.Index != index]
+    df.to_csv("apart.csv",index=False)
+    ind=list(df.Index)
+    num=list(df.index)
+    dic=dict(zip(ind,num))
+    fhind=open('apartindex.txt','w')
+    for i in sorted(dic) : 
+        fhind.write(str(i)+'|'+str(dic[i])+'\n')
+    fhind.close()
+
+    return render_template(
+        'deletebuild.html',
     )

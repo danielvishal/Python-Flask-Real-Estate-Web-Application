@@ -379,6 +379,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminLogin.txt" />
+    <Content Include="apart.csv" />
+    <Content Include="apartindex.txt" />
+    <Content Include="build.csv" />
+    <Content Include="buildindex.txt" />
+    <Content Include="buyhome.csv" />
+    <Content Include="buyhomeindex.txt" />
+    <Content Include="land.csv" />
+    <Content Include="landindex.txt" />
     <Content Include="RealEstate_Flask\static\assets\css\style.css" />
     <Content Include="RealEstate_Flask\static\assets\css\style.css.map" />
     <Content Include="RealEstate_Flask\static\assets\js\dashboard.js" />
@@ -3173,17 +3181,32 @@
     <Content Include="RealEstate_Flask\templates\.editorconfig" />
     <Content Include="RealEstate_Flask\templates\.gitattributes" />
     <Content Include="RealEstate_Flask\templates\.gitignore" />
+    <Content Include="RealEstate_Flask\templates\addapart.html" />
+    <Content Include="RealEstate_Flask\templates\addbuild.html" />
+    <Content Include="RealEstate_Flask\templates\addhome.html" />
     <Content Include="RealEstate_Flask\templates\addland.html" />
     <Content Include="RealEstate_Flask\templates\admin.html" />
     <Content Include="RealEstate_Flask\templates\adminindex.html" />
+    <Content Include="RealEstate_Flask\templates\apart.html" />
     <Content Include="RealEstate_Flask\templates\bower.json" />
+    <Content Include="RealEstate_Flask\templates\build.html" />
+    <Content Include="RealEstate_Flask\templates\buyhome.html" />
+    <Content Include="RealEstate_Flask\templates\contact.html" />
+    <Content Include="RealEstate_Flask\templates\deleteland.html" />
+    <Content Include="RealEstate_Flask\templates\dispapart.html" />
+    <Content Include="RealEstate_Flask\templates\dispbuild.html" />
+    <Content Include="RealEstate_Flask\templates\disphome.html" />
+    <Content Include="RealEstate_Flask\templates\displand.html" />
     <Content Include="RealEstate_Flask\templates\favicon.ico" />
     <Content Include="RealEstate_Flask\templates\gruntfile.js" />
     <Content Include="RealEstate_Flask\templates\land.html" />
     <Content Include="RealEstate_Flask\templates\package.json" />
     <Content Include="RealEstate_Flask\templates\page-login.html" />
     <Content Include="RealEstate_Flask\templates\page-register.html" />
+    <Content Include="RealEstate_Flask\templates\renthome.html" />
     <Content Include="RealEstate_Flask\templates\search.html" />
+    <Content Include="RealEstate_Flask\templates\searchdisplay.html" />
+    <Content Include="RealEstate_Flask\templates\searchdisplayhome.html" />
     <Content Include="requirements.txt" />
     <Content Include="RealEstate_Flask\static\content\bootstrap.css" />
     <Content Include="RealEstate_Flask\static\content\bootstrap.min.css" />
@@ -3209,6 +3232,7 @@
     <Content Include="RealEstate_Flask\static\scripts\_references.js" />
     <Content Include="RealEstate_Flask\templates\index.html" />
     <Content Include="RealEstate_Flask\templates\layout.html" />
+    <Content Include="temp.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
   <!-- Specify pre- and post-build commands in the BeforeBuild and 

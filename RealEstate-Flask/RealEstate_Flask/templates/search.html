@@ -54,8 +54,9 @@
 	     <div id='Buy' class="visible">
 		 
 		 <div class="row form-group">
-                                                                    <div class="col col-md-5" align="center"><label for="select" class=" form-control-label">Listing Type</label></div>
-                                                                    <div class="col-12 col-md-5">
+                 <div class="col col-md-5" align="center"><label for="select" class=" form-control-label">Listing Type</label></div>
+                     <div class="col-12 col-md-5">
+                                                                      
                                                                         <select name="BuyType" id="BuyType" class="form-control">
                                                                             <option value="0">Select </option>
                                                                             <option value="1">Land</option>
@@ -101,16 +102,55 @@
 </div>					
 								
  
-</form> 
+
         
 		<div id='Rent' class="hidden">
 		<div class="row form-group">
-                                    <div class="col col-md-5" align="center"><label for="text-input" class=" form-control-label" >LocationR</label></div>
-                                    <div class="col-12 col-md-5"><input type="text" id="locati" name="locat" placeholder="Text" class="form-control"><small class="form-text text-muted"></small></div>
+                                                                    <div class="col col-md-5" align="center"><label for="select" class=" form-control-label">Listing Type</label></div>
+                                                                    <div class="col-12 col-md-5">
+                                                                        <select name="RentType" id="RentType" class="form-control">
+                                                                            <option value="0">Select </option>
+                                                                            <option value="1">Commercial Building</option>
+                                                                            <option value="2">Apartment</option>
+                                                                        </select>
+                                                                    </div>
+																	<p><a id='Rlist' class="btn btn-outline-primary rounded-2 py-1 px-1">Select</a></p>
+                                                                
+			</div>	
+<div id='rentbuild' class="hidden">
+		<div class="row form-group">
+		
+                                    <div class="col col-md-5" align="center"><label for="text-input" class=" form-control-label" >Building Number</label></div>
+                                    <div class="col-12 col-md-5"><input type="number" id="bnumber" name="bnumber" placeholder="Text" class="form-control"><small class="form-text text-muted">Enter the Building Number</small></div>
+									
+									<div class="col col-md-5" align="center"><label for="text-input" class=" form-control-label" >Building Name</label></div>
+                                    <div class="col-12 col-md-5"><input type="text" id="bname" name="bname" placeholder="Text" class="form-control"><small class="form-text text-muted">Enter the Building Name</small></div>
                                 </div>
+								<div class="col col-md-12" align="center">
+					<button type="submit" class="btn btn-outline-primary rounded-2 py-2 px-3" align="center">
+                                    <i ></i> Submit
+                                </button>
+								</div>
+					</div>
+
+			 <div id='rentapartment' class="hidden">
+		<div class="row form-group">
+		
+                                    <div class="col col-md-5" align="center"><label for="text-input" class=" form-control-label" >Apartment Number</label></div>
+                                    <div class="col-12 col-md-5"><input type="number" id="anumber" name="anumber" placeholder="Text" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+									
+									<div class="col col-md-5" align="center"><label for="text-input" class=" form-control-label" >Apartment Name</label></div>
+                                    <div class="col-12 col-md-5"><input type="text" id="aname" name="aname" placeholder="Text" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                </div>
+								<div class="col col-md-12" align="center">
+					<button type="submit" class="btn btn-outline-primary rounded-2 py-2 px-3" align="center">
+                                    <i ></i> Submit
+                                </button>
+								</div>
+					</div>			
             
         </div>
-		
+</form> 		
 <script type="text/javascript">
 
     var buy = document.getElementById('Buy');
@@ -118,10 +158,13 @@
 	
 	var buland = document.getElementById('buyland');
 	var buhouse = document.getElementById('buyhouse');
+	var reapart = document.getElementById('rentapartment');
+	var rebuild = document.getElementById('rentbuild');
 	
     var buyBtn = document.getElementById('Buy_Btn');
     var rentBtn = document.getElementById('Rent_Btn');
 	var b_list = document.getElementById('Blist');
+	var r_list = document.getElementById('Rlist');
 
     buyBtn.onclick = function() {
         rent.setAttribute('class', 'hidden');
@@ -142,6 +185,18 @@
 		else{
 			buland.setAttribute('class', 'hidden');
 			buhouse.setAttribute('class', 'visible');
+		}
+	};	
+	
+	r_list.onclick = function() {
+		var v = document.getElementById('RentType').value
+		if(v==1){
+			reapart.setAttribute('class', 'hidden');
+			rebuild.setAttribute('class', 'visible');
+		}
+		else{
+			rebuild.setAttribute('class', 'hidden');
+			reapart.setAttribute('class', 'visible');
 		}
 	};	
 	

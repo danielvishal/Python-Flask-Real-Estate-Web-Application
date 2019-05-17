@@ -35,19 +35,24 @@
 
               <div class="p-4 property-body" id ="dispblock">
                 <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>
-                <h2 class="property-title"><a href="#">{{hdf.iloc[num][4]}} {{hdf.iloc[num][3]}}</a></h2>
-                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> {{hdf.iloc[num][2]}}, Bangalore</span>
-                <strong class="property-price text-primary mb-3 d-block text-success">Rs. {{hdf.iloc[num][5]}}</strong>
-                <p>Houses at the Best Price!</p>
+                <h2 class="property-title"><a href="#">{{df.iloc[num][0]}} {{df.iloc[num][1]}}</a></h2>
+                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> {{df.iloc[num][2]}}, Bangalore</span>
+                <strong class="property-price text-primary mb-3 d-block text-success">Rs. {{df.iloc[num][3]}}</strong>
+                <p>Land at the Best Price!</p>
                 <ul class="property-specs-wrap mb-3 mb-lg-0">
                   <li>
-                    <span class="property-specs">Bedroom</span>
-                    <span class="property-specs-number">{{hdf.iloc[num][1]}}</span>
+                    <span class="property-specs">Bed</span>
+                    <span class="property-specs-number">{{df.iloc[num][4]}}</span>
                     
                   </li>
                   <li>
                     <span class="property-specs">Bath</span>
-                    <span class="property-specs-number">{{hdf.iloc[num][0]}}</span>
+                    <span class="property-specs-number">{{df.iloc[num][5]}}</span>
+                    
+                  </li>
+				  <li>
+                    <span class="property-specs">Apartment Floor</span>
+                    <span class="property-specs-number">{{df.iloc[num][6]}}</span>
                     
                   </li>
                 </ul>

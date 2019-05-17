@@ -27,7 +27,7 @@
 <div class="site-section site-section-sm bg-light">
       <div class="container">
 	  
-      {% for i in range(0,num) %}
+      
         <div id = "panel">
           <div class="row mb-4">
           <div class="col-md-12">
@@ -35,19 +35,19 @@
 
               <div class="p-4 property-body" id ="dispblock">
                 <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>
-                <h2 class="property-title"><a href="#">{{bdf.iloc[i][0]}}</a></h2>
-                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> {{bdf.iloc[i][0]}}, Bangalore</span>
-                <strong class="property-price text-primary mb-3 d-block text-success">Rs. {{bdf.iloc[i][3]}}</strong>
+                <h2 class="property-title"><a href="#">{{bdf.iloc[num][0]}}</a></h2>
+                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> {{bdf.iloc[num][0]}}, Bangalore</span>
+                <strong class="property-price text-primary mb-3 d-block text-success">Rs. {{bdf.iloc[num][3]}}</strong>
                 <p>Land at the Best Price!</p>
                 <ul class="property-specs-wrap mb-3 mb-lg-0">
                   <li>
                     <span class="property-specs">Price/Sqft</span>
-                    <span class="property-specs-number">{{bdf.iloc[i][1]}}</span>
+                    <span class="property-specs-number">{{bdf.iloc[num][1]}}</span>
                     
                   </li>
                   <li>
                     <span class="property-specs">SQ FT</span>
-                    <span class="property-specs-number">{{bdf.iloc[i][2]}}</span>
+                    <span class="property-specs-number">{{bdf.iloc[num][2]}}</span>
                     
                   </li>
                 </ul>
@@ -57,7 +57,7 @@
           </div>
         </div>
 		</div>
-	{% endfor %}
+	
 
     </div>
 </div>    

@@ -98,14 +98,27 @@ def search():
 def search_post():
     llocation = request.form['llocation'] 
     lsize = request.form['lsize'] 
-    bhnumber = request.form['bhnumber'] 
-    bhname = request.form['bhname'] 
+    hnumber = request.form['bhnumber'] 
+    hname = request.form['bhname'] 
     btype = request.form['BuyType']
+    bnumber = request.form['bnumber']
+    bname = request.form['bname']
+    anumber = request.form['anumber']
+    aname = request.form['aname']
+    rtype = request.form['RentType']
+
     
     if(btype=='1'):
         lloca=llocation.strip().upper().replace(" ","")
         index="".join(str(ord(c)) for c in lloca[1:])
         index=llocation[0]+index+str(lsize)
+        fh=open("landindex.txt")
+        for line in fh:
+            find,no=line.strip().split("|")
+            if(find==index):
+               print(find)
+               break
+
         bdf = pd.read_csv("land.csv",index_col=0)
         try:
             print(bdf.loc[index])
@@ -116,12 +129,19 @@ def search_post():
         return render_template(
                 'searchdisplay.html',
                 bdf=bdf,
-                num=1
+                num=int(no)
         )
 
     if(btype=='2'):
-        bhname=bhname.strip().upper().replace(" ","")
-        index=str(bhnumber)+str(bhname)
+        hname=hname.strip().upper().replace(" ","")
+        index=str(hnumber)+str(hname)
+        fh=open("buyhomeindex.txt")
+        for line in fh:
+            find,no=line.strip().split("|")
+            if(find==index):
+               print(find)
+               break
+
         hdf=pd.read_csv("buyhome.csv",index_col=2)
         try:
             print(hdf.loc[index])
@@ -132,7 +152,53 @@ def search_post():
         return render_template(
                 'searchdisplayhome.html',
                 hdf=hdf,
-                num=1
+                num=int(no)
+        )
+
+    if(rtype=='1'):
+        bname=bname.strip().upper().replace(" ","")
+        index=str(bnumber)+str(bname)
+        fh=open("buildindex.txt")
+        for line in fh:
+            find,no=line.strip().split("|")
+            if(find==index):
+               print(find)
+               break
+
+        df=pd.read_csv("build.csv",index_col=0)
+        try:
+            print(df.loc[index])
+        except:
+            return render_template(
+            'search.html',
+        )
+        return render_template(
+                'searchdisplaybuild.html',
+                df=df,
+                num=int(no)
+        )
+
+    if(rtype=='2'):
+        aname=aname.strip().upper().replace(" ","")
+        index=str(anumber)+str(aname)
+        fh=open("apartindex.txt")
+        for line in fh:
+            find,no=line.strip().split("|")
+            if(find==index):
+               print(find)
+               break
+
+        df=pd.read_csv("apart.csv",index_col=0)
+        try:
+            print(df.loc[index])
+        except:
+            return render_template(
+            'search.html',
+        )
+        return render_template(
+                'searchdisplayapart.html',
+                df=df,
+                num=int(no)
         )
 
     """Renders the contact page."""    
@@ -209,7 +275,7 @@ def register_post():
     fadmin.close()
 
     return render_template(
-        'page-register.html',
+             'page-register.html',
     )
 
 @app.route('/addland')

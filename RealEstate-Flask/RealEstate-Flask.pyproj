@@ -3192,6 +3192,9 @@
     <Content Include="RealEstate_Flask\templates\build.html" />
     <Content Include="RealEstate_Flask\templates\buyhome.html" />
     <Content Include="RealEstate_Flask\templates\contact.html" />
+    <Content Include="RealEstate_Flask\templates\deleteapart.html" />
+    <Content Include="RealEstate_Flask\templates\deletebuild.html" />
+    <Content Include="RealEstate_Flask\templates\deletehome.html" />
     <Content Include="RealEstate_Flask\templates\deleteland.html" />
     <Content Include="RealEstate_Flask\templates\dispapart.html" />
     <Content Include="RealEstate_Flask\templates\dispbuild.html" />
@@ -3206,6 +3209,8 @@
     <Content Include="RealEstate_Flask\templates\renthome.html" />
     <Content Include="RealEstate_Flask\templates\search.html" />
     <Content Include="RealEstate_Flask\templates\searchdisplay.html" />
+    <Content Include="RealEstate_Flask\templates\searchdisplayapart.html" />
+    <Content Include="RealEstate_Flask\templates\searchdisplaybuild.html" />
     <Content Include="RealEstate_Flask\templates\searchdisplayhome.html" />
     <Content Include="requirements.txt" />
     <Content Include="RealEstate_Flask\static\content\bootstrap.css" />

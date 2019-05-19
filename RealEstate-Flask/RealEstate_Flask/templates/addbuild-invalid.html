@@ -2,12 +2,17 @@
 
 {% block content %}
         <!-- Header-->
+			    <script>
+		window.onload = function() {
+		alert("Property Already Exists!");
+		}
+		</script>
 
         <div class="breadcrumbs">
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>{{Title}}</h1>
+                        <h1>Dashboard</h1>
                     </div>
                 </div>
             </div>
@@ -16,13 +21,14 @@
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
                             <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Forms</a></li>
-                            <li class="active">Basic</li>
+                            <li><a href="#">Rent</a></li>
+                            <li class="active">Commercial Building</li>
                         </ol>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="content mt-3">
                 <div class="animated fadeIn">
 
@@ -30,20 +36,20 @@
                                             <div class="col-lg-10">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <strong>House</strong> Details
+                                                        <strong>Building</strong> Details
                                                     </div>
 													<form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                                                     <div class="card-body card-block">
                                                         
 														
 															<div class="row form-group">
-                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">House Number</label></div>
-                                                                <div class="col-12 col-md-9"><input type="number" id="houseno" name="houseno" placeholder="Number" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">Building Number</label></div>
+                                                                <div class="col-12 col-md-9"><input type="number" id="buildno" name="buildno" placeholder="Number" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
                                                             </div>
                                                             
                                                             <div class="row form-group">
-                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">House Name</label></div>
-                                                                <div class="col-12 col-md-9"><input type="text" id="housename" name="housename" placeholder="Name" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">Building Name</label></div>
+                                                                <div class="col-12 col-md-9"><input type="text" id="buildname" name="buildname" placeholder="Name" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
                                                             </div>
 
                                                             <div class="row form-group">
@@ -52,34 +58,29 @@
                                                             </div>
 
                                                             <div class="row form-group">
-                                                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Price</label></div>
+                                                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Rent/Month</label></div>
                                                                     <div class="col-12 col-md-9"><input type="number" id="price" name="price" placeholder="Text" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                                            </div>
+															
+															<div class="row form-group">
+                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">Size</label></div>
+                                                                <div class="col-12 col-md-9"><input type="text" id="size" name="size" placeholder="in Sqft" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
                                                             </div>
                     
                                             
                                                                 <div class="row form-group">
-                                                                    <div class="col col-md-3"><label for="select" class=" form-control-label">Beds</label></div>
+                                                                    <div class="col col-md-3"><label for="select" class=" form-control-label">Main Road Access</label></div>
                                                                     <div class="col-12 col-md-9">
-                                                                        <select name="bed" id="bed" class="form-control">
-                                                                            <option value="0">Select the no. of Beds</option>
-                                                                            <option value="1">1</option>
-                                                                            <option value="2">2</option>
-                                                                            <option value="3">3</option>
+                                                                        <select name="road" id="road" class="form-control">
+                                                                            <option value="No">Select </option>
+                                                                            <option value="Yes">Yes</option>
+                                                                            <option value="No">No</option>
+                                                                          
                                                                         </select>
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="row form-group">
-                                                                        <div class="col col-md-3"><label for="select" class=" form-control-label">Bath</label></div>
-                                                                        <div class="col-12 col-md-9">
-                                                                            <select name="bath" id="bath" class="form-control">
-                                                                                <option value="0">Select the no. of Bathrooms</option>
-                                                                                <option value="1">1</option>
-                                                                                <option value="2">2</option>
-                                                                                <option value="3">3</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
+                                                           
                                                                 
                                                                 
                                                                 

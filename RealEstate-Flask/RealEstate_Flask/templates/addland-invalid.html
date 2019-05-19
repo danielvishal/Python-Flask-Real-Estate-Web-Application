@@ -1,14 +1,20 @@
 {% extends "admin.html" %}
 
 {% block content %}
+    <!-- Right Panel -->
 
- <!-- Header-->
-
+    <!-- <div id="right-panel" class="right-panel">  -->
+	
+	    <script>
+		window.onload = function() {
+		alert("Property Already Exists!");
+		}
+		</script>
         <div class="breadcrumbs">
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>{{Title}}</h1>
+                        <h1>Dashboard</h1>
                     </div>
                 </div>
             </div>
@@ -25,10 +31,11 @@
             </div>
         </div>
 
-        <div class="content mt-3">
-                <div class="animated fadeIn">
-				
-				<div class="col-lg-10">
+       <div class="content mt-3">
+            <div class="animated fadeIn">
+
+
+                <div class="col-lg-10">
                     <div class="card">
                         <div class="card-header">
                             <strong>Land</strong> Details
@@ -38,17 +45,21 @@
 
 
 
-								<div class="row form-group">
-                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Number</label></div>
-                                    <div class="col-12 col-md-9"><input type="number" id="number" name="number" placeholder="Building Number" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
-                                </div>
-
 
                                 <div class="row form-group">
-                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Name</label></div>
-                                    <div class="col-12 col-md-9"><input type="text" id="name" name="name" placeholder="Building Name" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Location</label></div>
+                                    <div class="col-12 col-md-9"><input type="text" id="location" name="location" placeholder="Text" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
                                 </div>
-                                
+
+                                <div class="row form-group">
+                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Price/Sqft</label></div>
+                                    <div class="col-12 col-md-9"><input type="number" id="price" name="price" placeholder="Rupees" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Size</label></div>
+                                    <div class="col-12 col-md-9"><input type="number" id="price" name="size" placeholder="Sqft" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                </div>
 
 
                            </div>
@@ -64,15 +75,11 @@
                     </div>
 
                 </div>
-				
-				
-				
-				
-				
-				
-				
-		
-                                    </div><!-- .content -->
-                                </div><!-- /#right-panel -->
-                                <!-- Right Panel -->
-{% endblock %}
+
+
+
+
+            </div><!-- .content -->
+        </div>
+        
+        {% endblock %}

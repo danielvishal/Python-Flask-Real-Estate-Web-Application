@@ -2,12 +2,17 @@
 
 {% block content %}
         <!-- Header-->
+			    <script>
+		window.onload = function() {
+		alert("Property Already Exists!");
+		}
+		</script>
 
         <div class="breadcrumbs">
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>{{Title}}</h1>
+                        <h1>Dashboard</h1>
                     </div>
                 </div>
             </div>
@@ -23,6 +28,7 @@
                 </div>
             </div>
         </div>
+		
         <div class="content mt-3">
                 <div class="animated fadeIn">
 
@@ -30,20 +36,20 @@
                                             <div class="col-lg-10">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <strong>House</strong> Details
+                                                        <strong>Apartment</strong> Details
                                                     </div>
 													<form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                                                     <div class="card-body card-block">
                                                         
 														
 															<div class="row form-group">
-                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">House Number</label></div>
-                                                                <div class="col-12 col-md-9"><input type="number" id="houseno" name="houseno" placeholder="Number" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">Apartment Number</label></div>
+                                                                <div class="col-12 col-md-9"><input type="number" id="apartno" name="apartno" placeholder="Number" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
                                                             </div>
                                                             
                                                             <div class="row form-group">
-                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">House Name</label></div>
-                                                                <div class="col-12 col-md-9"><input type="text" id="housename" name="housename" placeholder="Name" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
+                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">Apartment Name</label></div>
+                                                                <div class="col-12 col-md-9"><input type="text" id="apartname" name="apartname" placeholder="Name" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
                                                             </div>
 
                                                             <div class="row form-group">
@@ -52,12 +58,11 @@
                                                             </div>
 
                                                             <div class="row form-group">
-                                                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Price</label></div>
+                                                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Rent/Month</label></div>
                                                                     <div class="col-12 col-md-9"><input type="number" id="price" name="price" placeholder="Text" class="form-control"><small class="form-text text-muted">This is a help text</small></div>
                                                             </div>
-                    
-                                            
-                                                                <div class="row form-group">
+													
+															<div class="row form-group">
                                                                     <div class="col col-md-3"><label for="select" class=" form-control-label">Beds</label></div>
                                                                     <div class="col-12 col-md-9">
                                                                         <select name="bed" id="bed" class="form-control">
@@ -80,32 +85,27 @@
                                                                             </select>
                                                                         </div>
                                                                     </div>
-                                                                
-                                                                
-                                                                
-                                                                <!-- <div class="row form-group">
-                                                                    <div class="col col-md-3"><label class=" form-control-label">Amenities</label></div>
-                                                                    <div class="col col-md-9">
-                                                                        <div class="form-check">
-                                                                            <div class="checkbox">
-                                                                                <label for="checkbox1" class="form-check-label ">
-                                                                                    <input type="checkbox" id="checkbox1" name="checkbox1" value="Yes" class="form-check-input">School
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="checkbox">
-                                                                                <label for="checkbox2" class="form-check-label ">
-                                                                                    <input type="checkbox" id="checkbox2" name="checkbox2" value="Yes" class="form-check-input"> Water
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="checkbox">
-                                                                                <label for="checkbox3" class="form-check-label ">
-                                                                                    <input type="checkbox" id="checkbox3" name="checkbox3" value="Yes" class="form-check-input"> Hospital
-                                                                                </label>
-                                                                            </div>
-                                                                        </div>
+                    
+                                            
+                                                                <div class="row form-group">
+                                                                    <div class="col col-md-3"><label for="select" class=" form-control-label">Apartment Floor</label></div>
+                                                                    <div class="col-12 col-md-9">
+                                                                        <select name="floor" id="floor" class="form-control">
+                                                                            <option value="0">Select the Floor</option>
+                                                                            <option value="1">1</option>
+                                                                            <option value="2">2</option>
+                                                                            <option value="3">3</option>
+																			<option value="4">4</option>
+																			<option value="5">5</option>
+                                                                        </select>
                                                                     </div>
-                                                                </div> -->
+                                                                </div>
+
+                                                            
                                                                 
+                                                                
+                                                                
+                                                               
                                                     
                                                         
                                                     </div>

@@ -239,13 +239,12 @@ def login_post():
         else:
             fhand.close()
             return render_template(
-             'page-login.html',
-             title='About'
+             'login-invalid.html',
              ) 
     else:
         fhand.close()
         return render_template(
-             'page-login.html',
+             'login-invalid.html',
              title='About'
              ) 
   
@@ -282,7 +281,8 @@ def register_post():
 def addland():
     """Renders the addland page."""
     return render_template(
-        'addland.html'
+        'addland.html',
+        Title='Add Land'
     )
 
 @app.route('/addland',methods=['POST'])
@@ -297,28 +297,40 @@ def addland_post():
     loca=location.strip().upper()
     index="".join(str(ord(c)) for c in loca[1:])
     index=loca[0]+index+str(size)
-    dic={'Index':index,'Location':location,'Price':price,'Size':size,'Cost':cost}
-    add=pd.DataFrame(dic,index=[num])
-    df=df.append(add)
-    df.to_csv("land.csv",index=False)
-    shutil.copy('landindex.txt','temp.txt')
-    fhand=open("temp.txt",'r')
-    find=open("landindex.txt",'w')
-    for line in fhand:
-        ind,add=line.split("|")
-        if(index>ind):
-            find.write(line)
-        else:
-            find.write(index+'|'+str(num)+'\n')
-            find.write(line)
-            for line in fhand:
-                find.write(line)
+    fh=open("landindex.txt")
+    flag=0
+    for line in fh:
+        ind,no=line.strip().split("|")
+        if(ind==index):
+            flag=1
             break
-    fhand.close()
-    find.close()
+    fh.close()
+    if flag==0:
+        dic={'Index':index,'Location':location,'Price':price,'Size':size,'Cost':cost}
+        add=pd.DataFrame(dic,index=[num])
+        df=df.append(add)
+        df.to_csv("land.csv",index=False)
+        shutil.copy('landindex.txt','temp.txt')
+        fhand=open("temp.txt",'r')
+        find=open("landindex.txt",'w')
+        for line in fhand:
+            ind,add=line.split("|")
+            if(index>ind):
+                find.write(line)
+            else:
+                find.write(index+'|'+str(num)+'\n')
+                find.write(line)
+                for line in fhand:
+                    find.write(line)
+                break
+        fhand.close()
+        find.close()
+        return render_template(
+        'addland.html'
+        )
 
     return render_template(
-        'index.html'
+        'addland-invalid.html'
     )
 
 @app.route('/displand')
@@ -368,7 +380,8 @@ def deleteland_post():
 def addhome():
     """Renders the addland page."""
     return render_template(
-        'addhome.html'
+        'addhome.html',
+        Title="Add Home"
     )
 
 @app.route('/addhome',methods=['POST'])
@@ -385,29 +398,43 @@ def addhome_post():
     num=len(df.index)
     hname=name.strip().upper().replace(" ","")
     index=str(number)+str(hname)
-    dic={'Index':index,'Number':number,'Name':name,'Location':location,'Price':price,'Bed':bed,'Bath':bath}
-    add=pd.DataFrame(dic,index=[num])
-    df=df.append(add)
-    df.to_csv("buyhome.csv",index=False)
-    shutil.copy('buyhomeindex.txt','temp.txt')
-    fhand=open("temp.txt",'r')
-    find=open("buyhomeindex.txt",'w')
-    for line in fhand:
-        ind,add=line.split("|")
-        if(index>ind):
-            find.write(line)
-        else:
-            find.write(index+'|'+str(num)+'\n')
-            find.write(line)
-            for line in fhand:
-                find.write(line)
+    fh=open("buyhomeindex.txt")
+    flag=0
+    for line in fh:
+        ind,no=line.strip().split("|")
+        if(ind==index):
+            flag=1
             break
-    fhand.close()
-    find.close()
-
+    fh.close()
+    if flag==0:
+        dic={'Index':index,'Number':number,'Name':name,'Location':location,'Price':price,'Bed':bed,'Bath':bath}
+        add=pd.DataFrame(dic,index=[num])
+        df=df.append(add)
+        df.to_csv("buyhome.csv",index=False)
+        shutil.copy('buyhomeindex.txt','temp.txt')
+        fhand=open("temp.txt",'r')
+        find=open("buyhomeindex.txt",'w')
+        for line in fhand:
+            ind,add=line.split("|")
+            if(index>ind):
+                find.write(line)
+            else:
+                find.write(index+'|'+str(num)+'\n')
+                find.write(line)
+                for line in fhand:
+                    find.write(line)
+                break
+        fhand.close()
+        find.close()
+        return render_template(
+        'addhome.html',
+        Title="Succesfully Added"
+        )
     return render_template(
-        'index.html'
+        'addhome-invalid.html'
     )
+
+
 
 @app.route('/disphome')
 def disphome():
@@ -453,7 +480,8 @@ def deletehome_post():
 def addbuild():
     """Renders the addland page."""
     return render_template(
-        'addbuild.html'
+        'addbuild.html',
+        Title='Add Building'
     )
 
 @app.route('/addbuild',methods=['POST'])
@@ -470,28 +498,40 @@ def addbuild_post():
     num=len(df.index)
     hname=name.strip().upper().replace(" ","")
     index=str(number)+str(hname)
-    dic={'Index':index,'Number':number,'Name':name,'Location':location,'Price':price,'Size':size,'Main_Road_Access':road}
-    add=pd.DataFrame(dic,index=[num])
-    df=df.append(add)
-    df.to_csv("build.csv",index=False)
-    shutil.copy('buildindex.txt','temp.txt')
-    fhand=open("temp.txt",'r')
-    find=open("buildindex.txt",'w')
-    for line in fhand:
-        ind,add=line.split("|")
-        if(index>ind):
-            find.write(line)
-        else:
-            find.write(index+'|'+str(num)+'\n')
-            find.write(line)
-            for line in fhand:
-                find.write(line)
+    fh=open("buildindex.txt")
+    flag=0
+    for line in fh:
+        ind,no=line.strip().split("|")
+        if(ind==index):
+            flag=1
             break
-    fhand.close()
-    find.close()
-
+    fh.close()
+    if flag==0:
+        dic={'Index':index,'Number':number,'Name':name,'Location':location,'Price':price,'Size':size,'Main_Road_Access':road}
+        add=pd.DataFrame(dic,index=[num])
+        df=df.append(add)
+        df.to_csv("build.csv",index=False)
+        shutil.copy('buildindex.txt','temp.txt')
+        fhand=open("temp.txt",'r')
+        find=open("buildindex.txt",'w')
+        for line in fhand:
+            ind,add=line.split("|")
+            if(index>ind):
+                find.write(line)
+            else:
+                find.write(index+'|'+str(num)+'\n')
+                find.write(line)
+                for line in fhand:
+                    find.write(line)
+                break
+        fhand.close()
+        find.close()
+        return render_template(
+            'addbuild.html',
+            Title="Succesfully Added"
+        )
     return render_template(
-        'index.html'
+        'addbuild-invalid.html'
     )
 
 @app.route('/dispbuild')
@@ -538,7 +578,8 @@ def deletebuild_post():
 def addapart():
     """Renders the addland page."""
     return render_template(
-        'addapart.html'
+        'addapart.html',
+        Title='Add Apartment'
     )
 
 @app.route('/addapart',methods=['POST'])
@@ -556,28 +597,40 @@ def addapart_post():
     num=len(df.index)
     hname=name.strip().upper().replace(" ","")
     index=str(number)+str(hname)
-    dic={'Index':index,'Number':number,'Name':name,'Location':location,'Rent':price,'Bed':bed,'Bath':bath,'Apartment_Floor':floor}
-    add=pd.DataFrame(dic,index=[num])
-    df=df.append(add)
-    df.to_csv("apart.csv",index=False)
-    shutil.copy('apartindex.txt','temp.txt')
-    fhand=open("temp.txt",'r')
-    find=open("apartindex.txt",'w')
-    for line in fhand:
-        ind,add=line.split("|")
-        if(index>ind):
-            find.write(line)
-        else:
-            find.write(index+'|'+str(num)+'\n')
-            find.write(line)
-            for line in fhand:
-                find.write(line)
+    fh=open("apartindex.txt")
+    flag=0
+    for line in fh:
+        ind,no=line.strip().split("|")
+        if(ind==index):
+            flag=1
             break
-    fhand.close()
-    find.close()
-
+    fh.close()
+    if flag==0:
+        dic={'Index':index,'Number':number,'Name':name,'Location':location,'Rent':price,'Bed':bed,'Bath':bath,'Apartment_Floor':floor}
+        add=pd.DataFrame(dic,index=[num])
+        df=df.append(add)
+        df.to_csv("apart.csv",index=False)
+        shutil.copy('apartindex.txt','temp.txt')
+        fhand=open("temp.txt",'r')
+        find=open("apartindex.txt",'w')
+        for line in fhand:
+            ind,add=line.split("|")
+            if(index>ind):
+                find.write(line)
+            else:
+                find.write(index+'|'+str(num)+'\n')
+                find.write(line)
+                for line in fhand:
+                    find.write(line)
+                break
+        fhand.close()
+        find.close()
+        return render_template(
+            'addapart.html',
+            Title="Succesfully Added"
+        )
     return render_template(
-        'index.html'
+        'addapart-invalid.html'
     )
 
 @app.route('/dispapart')
@@ -596,26 +649,42 @@ def deleteapart():
     """Renders the addland page."""
     return render_template(
         'deleteapart.html',
+        Title="Delete Apartment"
     )
 
 @app.route('/deleteapart' , methods=['POST'])
 def deleteapart_post():
     number = request.form['number']
     name = request.form['name']
-
+        
     hname=name.strip().upper().replace(" ","")
     index=str(number)+str(hname)
-    df=pd.read_csv("apart.csv")
-    df=df[df.Index != index]
-    df.to_csv("apart.csv",index=False)
-    ind=list(df.Index)
-    num=list(df.index)
-    dic=dict(zip(ind,num))
-    fhind=open('apartindex.txt','w')
-    for i in sorted(dic) : 
-        fhind.write(str(i)+'|'+str(dic[i])+'\n')
-    fhind.close()
+    flag=0
+    fh=open("apartindex.txt")
+    for line in fh:
+        ind,no=line.strip().split("|")
+        if(ind==index):
+            flag=1
+            break           
 
+    if flag==1:
+        df=pd.read_csv("apart.csv")
+        df=df[df.Index != index]
+        df.to_csv("apart.csv",index=False)
+        ind=list(df.Index)
+        num=list(df.index)
+        dic=dict(zip(ind,num))
+        fhind=open('apartindex.txt','w')
+        for i in sorted(dic) : 
+            fhind.write(str(i)+'|'+str(dic[i])+'\n')
+        fhind.close()
+        return render_template(
+            'deletebuild.html',
+            Title="Sucessfully Deleted"
+        )
     return render_template(
         'deletebuild.html',
+        Title="Apartment Does not Exist"
     )
+    
+    

@@ -7,25 +7,6 @@ from flask import render_template, request, Flask
 from RealEstate_Flask import app
 import pandas as pd
 import shutil
-import linecache
-from itertools import islice
-
-def binary_search(filename,search,no):
-    first = 2
-    last = no+1
-    found = False
-    while( first<=last and not found):
-        mid = (first + last)//2
-        key,index=linecache.getline(filename, mid).strip().split("|")
-        if key == search :
-            found = True
-            return index
-        else:
-            if search < key:
-                last = mid - 1
-            else:
-                first = mid + 1    
-    return 0
 
 
 
@@ -130,14 +111,17 @@ def search_post():
     if(btype=='1'):
         lloca=llocation.strip().upper().replace(" ","")
         index="".join(str(ord(c)) for c in lloca[1:])
-        key=llocation[0]+index+str(lsize)
+        index=llocation[0]+index+str(lsize)
         fh=open("landindex.txt")
-        no=int(fh.readline())
-        index=binary_search("landindex.txt",key,no)
+        for line in fh:
+            find,no=line.strip().split("|")
+            if(find==index):
+               print(find)
+               break
 
         bdf = pd.read_csv("land.csv",index_col=0)
         try:
-            print(bdf.loc[key])
+            print(bdf.loc[index])
         except:
             return render_template(
             'search.html',
@@ -145,19 +129,22 @@ def search_post():
         return render_template(
                 'searchdisplay.html',
                 bdf=bdf,
-                num=int(index)
+                num=int(no)
         )
 
     if(btype=='2'):
         hname=hname.strip().upper().replace(" ","")
-        key=str(hnumber)+str(hname)
+        index=str(hnumber)+str(hname)
         fh=open("buyhomeindex.txt")
-        no=int(fh.readline())
-        index=binary_search("buyhomeindex.txt",key,no)
+        for line in fh:
+            find,no=line.strip().split("|")
+            if(find==index):
+               print(find)
+               break
 
         hdf=pd.read_csv("buyhome.csv",index_col=2)
         try:
-            print(hdf.loc[key])
+            print(hdf.loc[index])
         except:
             return render_template(
             'search.html',
@@ -165,19 +152,22 @@ def search_post():
         return render_template(
                 'searchdisplayhome.html',
                 hdf=hdf,
-                num=int(index)
+                num=int(no)
         )
 
     if(rtype=='1'):
         bname=bname.strip().upper().replace(" ","")
-        key=str(bnumber)+str(bname)
+        index=str(bnumber)+str(bname)
         fh=open("buildindex.txt")
-        no=int(fh.readline())
-        index=binary_search("buildindex.txt",key,no)
+        for line in fh:
+            find,no=line.strip().split("|")
+            if(find==index):
+               print(find)
+               break
 
         df=pd.read_csv("build.csv",index_col=0)
         try:
-            print(df.loc[key])
+            print(df.loc[index])
         except:
             return render_template(
             'search.html',
@@ -185,19 +175,22 @@ def search_post():
         return render_template(
                 'searchdisplaybuild.html',
                 df=df,
-                num=int(index)
+                num=int(no)
         )
 
     if(rtype=='2'):
         aname=aname.strip().upper().replace(" ","")
-        key=str(anumber)+str(aname)
+        index=str(anumber)+str(aname)
         fh=open("apartindex.txt")
-        no=int(fh.readline())
-        index=binary_search("apartindex.txt",key,no)
-        
+        for line in fh:
+            find,no=line.strip().split("|")
+            if(find==index):
+               print(find)
+               break
+
         df=pd.read_csv("apart.csv",index_col=0)
         try:
-            print(df.loc[key])
+            print(df.loc[index])
         except:
             return render_template(
             'search.html',
@@ -205,9 +198,10 @@ def search_post():
         return render_template(
                 'searchdisplayapart.html',
                 df=df,
-                num=int(index)
+                num=int(no)
         )
-  
+
+    """Renders the contact page."""    
     return render_template(
                 'search.html'
     )
@@ -305,8 +299,7 @@ def addland_post():
     index=loca[0]+index+str(size)
     fh=open("landindex.txt")
     flag=0
-    entries=int(fh.readline())
-    for line in islice(fh,1,entries):
+    for line in fh:
         ind,no=line.strip().split("|")
         if(ind==index):
             flag=1
@@ -319,28 +312,17 @@ def addland_post():
         df.to_csv("land.csv",index=False)
         shutil.copy('landindex.txt','temp.txt')
         fhand=open("temp.txt",'r')
-        fent=open("landindex.txt",'w')
-        entries+=1
-        ent=0
-        fent.write(str(entries)+'\n')
-        fent.close()
         find=open("landindex.txt",'w')
         for line in fhand:
-            try:
-                ind,add=line.split("|")
-            except:
-                continue
+            ind,add=line.split("|")
             if(index>ind):
                 find.write(line)
             else:
-                ent=1
                 find.write(index+'|'+str(num)+'\n')
                 find.write(line)
                 for line in fhand:
                     find.write(line)
                 break
-        if (ent==0):
-            find.write(index+'|'+str(num)+'\n')
         fhand.close()
         find.close()
         return render_template(
@@ -377,28 +359,16 @@ def deleteland_post():
     loca=location.strip().upper()
     index="".join(str(ord(c)) for c in loca[1:])
     index=loca[0]+index+str(size)
-    flag=0
-    fh=open("landindex.txt")
-    _=fh.readline()
-    for line in fh:
-        ind,no=line.strip().split("|")
-        if(ind==index):
-            flag=1
-            break
-    if flag==1: 
-        df=pd.read_csv("land.csv")
-        df=df[df.Index != index]
-        df.to_csv("land.csv",index=False)
-        df=pd.read_csv("land.csv")
-        ind=list(df.Index)
-        num=list(df.index)
-        entries=len(df.Index)
-        dic=dict(zip(ind,num))
-        fhind=open('landindex.txt','w')
-        fhind.write(str(entries)+'\n')
-        for i in sorted(dic) : 
-            fhind.write(str(i)+'|'+str(dic[i])+'\n')
-        fhind.close()
+    df=pd.read_csv("land.csv")
+    df=df[df.Index != index]
+    df.to_csv("land.csv",index=False)
+    ind=list(df.Index)
+    num=list(df.index)
+    dic=dict(zip(ind,num))
+    fhind=open('landindex.txt','w')
+    for i in sorted(dic) : 
+        fhind.write(str(i)+'|'+str(dic[i])+'\n')
+    fhind.close()
 
     """Renders the addland page."""
     return render_template(
@@ -430,8 +400,7 @@ def addhome_post():
     index=str(number)+str(hname)
     fh=open("buyhomeindex.txt")
     flag=0
-    entries=int(fh.readline())
-    for line in islice(fh,1,entries):
+    for line in fh:
         ind,no=line.strip().split("|")
         if(ind==index):
             flag=1
@@ -444,28 +413,17 @@ def addhome_post():
         df.to_csv("buyhome.csv",index=False)
         shutil.copy('buyhomeindex.txt','temp.txt')
         fhand=open("temp.txt",'r')
-        fent=open("buyhomeindex.txt",'w')
-        entries+=1
-        ent=0
-        fent.write(str(entries)+'\n')
-        fent.close()
-        find=open("buyhomeindex.txt",'a')
+        find=open("buyhomeindex.txt",'w')
         for line in fhand:
-            try:
-                ind,add=line.split("|")
-            except:
-                continue
+            ind,add=line.split("|")
             if(index>ind):
                 find.write(line)
             else:
-                ent=1
                 find.write(index+'|'+str(num)+'\n')
                 find.write(line)
                 for line in fhand:
                     find.write(line)
                 break
-        if (ent==0):
-            find.write(index+'|'+str(num)+'\n')        
         fhand.close()
         find.close()
         return render_template(
@@ -503,28 +461,16 @@ def deletehome_post():
 
     hname=name.strip().upper().replace(" ","")
     index=str(number)+str(hname)
-    flag=0
-    fh=open("buyhomeindex.txt")
-    _=fh.readline()
-    for line in fh:
-        ind,no=line.strip().split("|")
-        if(ind==index):
-            flag=1
-            break 
-
-    if flag==1:        
-        df=pd.read_csv("buyhome.csv")
-        df=df[df.Index != index]
-        df.to_csv("buyhome.csv",index=False)
-        ind=list(df.Index)
-        num=list(df.index)
-        entries=len(df.Index)
-        dic=dict(zip(ind,num))
-        fhind=open('buyhomeindex.txt','w')
-        fhind.write(str(entries)+'\n')
-        for i in sorted(dic) : 
-            fhind.write(str(i)+'|'+str(dic[i])+'\n')
-        fhind.close()
+    df=pd.read_csv("buyhome.csv")
+    df=df[df.Index != index]
+    df.to_csv("buyhome.csv",index=False)
+    ind=list(df.Index)
+    num=list(df.index)
+    dic=dict(zip(ind,num))
+    fhind=open('buyhomeindex.txt','w')
+    for i in sorted(dic) : 
+        fhind.write(str(i)+'|'+str(dic[i])+'\n')
+    fhind.close()
 
     return render_template(
         'deletehome.html',
@@ -554,8 +500,7 @@ def addbuild_post():
     index=str(number)+str(hname)
     fh=open("buildindex.txt")
     flag=0
-    entries=int(fh.readline())
-    for line in islice(fh,1,entries):
+    for line in fh:
         ind,no=line.strip().split("|")
         if(ind==index):
             flag=1
@@ -568,28 +513,17 @@ def addbuild_post():
         df.to_csv("build.csv",index=False)
         shutil.copy('buildindex.txt','temp.txt')
         fhand=open("temp.txt",'r')
-        fent=open("buildindex.txt",'w')
-        entries+=1
-        ent=0
-        fent.write(str(entries)+'\n')
-        fent.close()
-        find=open("buildindex.txt",'a')
+        find=open("buildindex.txt",'w')
         for line in fhand:
-            try:
-                ind,add=line.split("|")
-            except:
-                continue
+            ind,add=line.split("|")
             if(index>ind):
                 find.write(line)
             else:
-                ent=1
                 find.write(index+'|'+str(num)+'\n')
                 find.write(line)
                 for line in fhand:
                     find.write(line)
                 break
-        if (ent==0):
-            find.write(index+'|'+str(num)+'\n')
         fhand.close()
         find.close()
         return render_template(
@@ -625,29 +559,16 @@ def deletebuild_post():
 
     hname=name.strip().upper().replace(" ","")
     index=str(number)+str(hname)
-    flag=0
-    fh=open("buildindex.txt")
-    _=fh.readline()
-    for line in fh:
-        ind,no=line.strip().split("|")
-        if(ind==index):
-            flag=1
-            break 
-
-    if flag==1:        
-        df=pd.read_csv("build.csv")
-        df=df[df.Index != index]
-        df.to_csv("build.csv",index=False)
-        df=pd.read_csv("build.csv")
-        ind=list(df.Index)
-        num=list(df.index)
-        entries=len(df.Index)
-        dic=dict(zip(ind,num))
-        fhind=open('buildindex.txt','w')
-        fhind.write(str(entries)+'\n')
-        for i in sorted(dic) : 
-            fhind.write(str(i)+'|'+str(dic[i])+'\n')
-        fhind.close()
+    df=pd.read_csv("build.csv")
+    df=df[df.Index != index]
+    df.to_csv("build.csv",index=False)
+    ind=list(df.Index)
+    num=list(df.index)
+    dic=dict(zip(ind,num))
+    fhind=open('buildindex.txt','w')
+    for i in sorted(dic) : 
+        fhind.write(str(i)+'|'+str(dic[i])+'\n')
+    fhind.close()
 
     return render_template(
         'deletebuild.html',
@@ -678,8 +599,7 @@ def addapart_post():
     index=str(number)+str(hname)
     fh=open("apartindex.txt")
     flag=0
-    entries=int(fh.readline())
-    for line in islice(fh,1,entries):
+    for line in fh:
         ind,no=line.strip().split("|")
         if(ind==index):
             flag=1
@@ -692,28 +612,17 @@ def addapart_post():
         df.to_csv("apart.csv",index=False)
         shutil.copy('apartindex.txt','temp.txt')
         fhand=open("temp.txt",'r')
-        fent=open("apartindex.txt",'w')
-        entries+=1
-        ent=0
-        fent.write(str(entries)+'\n')
-        fent.close()
-        find=open("apartindex.txt",'a')
+        find=open("apartindex.txt",'w')
         for line in fhand:
-            try:
-                ind,add=line.split("|")
-            except:
-                continue
+            ind,add=line.split("|")
             if(index>ind):
                 find.write(line)
             else:
-                ent=1
                 find.write(index+'|'+str(num)+'\n')
                 find.write(line)
                 for line in fhand:
                     find.write(line)
                 break
-        if (ent==0):
-            find.write(index+'|'+str(num)+'\n')
         fhand.close()
         find.close()
         return render_template(
@@ -752,7 +661,6 @@ def deleteapart_post():
     index=str(number)+str(hname)
     flag=0
     fh=open("apartindex.txt")
-    _=fh.readline()
     for line in fh:
         ind,no=line.strip().split("|")
         if(ind==index):
@@ -763,13 +671,10 @@ def deleteapart_post():
         df=pd.read_csv("apart.csv")
         df=df[df.Index != index]
         df.to_csv("apart.csv",index=False)
-        df=pd.read_csv("apart.csv")
         ind=list(df.Index)
         num=list(df.index)
-        entries=len(df.Index)
         dic=dict(zip(ind,num))
         fhind=open('apartindex.txt','w')
-        fhind.write(str(entries)+'\n')
         for i in sorted(dic) : 
             fhind.write(str(i)+'|'+str(dic[i])+'\n')
         fhind.close()

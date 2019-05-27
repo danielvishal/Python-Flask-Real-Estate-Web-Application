@@ -110,6 +110,7 @@ def search():
     """Renders the contact page."""
     return render_template(
         'search.html',
+        Title="Search our Properties",
         
     )
 
@@ -128,9 +129,9 @@ def search_post():
 
     
     if(btype=='1'):
-        lloca=llocation.strip().upper().replace(" ","")
+        lloca=llocation.upper().strip().replace(" ","")
         index="".join(str(ord(c)) for c in lloca[1:])
-        key=llocation[0]+index+str(lsize)
+        key=llocation[0].upper()+index+str(lsize)
         fh=open("landindex.txt")
         no=int(fh.readline())
         index=binary_search("landindex.txt",key,no)
@@ -141,6 +142,7 @@ def search_post():
         except:
             return render_template(
             'search.html',
+            Title="Property Not Found"
         )
         return render_template(
                 'searchdisplay.html',
@@ -161,6 +163,7 @@ def search_post():
         except:
             return render_template(
             'search.html',
+            Title="Property Not Found"
         )
         return render_template(
                 'searchdisplayhome.html',
@@ -181,6 +184,7 @@ def search_post():
         except:
             return render_template(
             'search.html',
+            Title="Property Not Found"
         )
         return render_template(
                 'searchdisplaybuild.html',
@@ -201,6 +205,7 @@ def search_post():
         except:
             return render_template(
             'search.html',
+            Title="Property Not Found"
         )
         return render_template(
                 'searchdisplayapart.html',
@@ -209,7 +214,8 @@ def search_post():
         )
   
     return render_template(
-                'search.html'
+                'search.html',
+                Title="Property Not Found"
     )
 
 @app.route('/about')
@@ -399,10 +405,15 @@ def deleteland_post():
         for i in sorted(dic) : 
             fhind.write(str(i)+'|'+str(dic[i])+'\n')
         fhind.close()
+        return render_template(
+        'deleteland.html',
+        Title="Sucessfully Deleted"
+    )
 
     """Renders the addland page."""
     return render_template(
         'deleteland.html',
+        Title="Land Does not Exist"
     )
 
 
@@ -431,9 +442,10 @@ def addhome_post():
     fh=open("buyhomeindex.txt")
     flag=0
     entries=int(fh.readline())
-    for line in islice(fh,1,entries):
+    for line in islice(fh,0,entries):
         ind,no=line.strip().split("|")
         if(ind==index):
+            print(ind)
             flag=1
             break
     fh.close()
@@ -525,9 +537,14 @@ def deletehome_post():
         for i in sorted(dic) : 
             fhind.write(str(i)+'|'+str(dic[i])+'\n')
         fhind.close()
+        return render_template(
+        'deletehome.html',
+        Title="Sucessfully Deleted"
+    )
 
     return render_template(
         'deletehome.html',
+        Title="House Does not Exist"
     )
 
 @app.route('/addbuild')
@@ -555,7 +572,7 @@ def addbuild_post():
     fh=open("buildindex.txt")
     flag=0
     entries=int(fh.readline())
-    for line in islice(fh,1,entries):
+    for line in islice(fh,0,entries):
         ind,no=line.strip().split("|")
         if(ind==index):
             flag=1
@@ -648,9 +665,15 @@ def deletebuild_post():
         for i in sorted(dic) : 
             fhind.write(str(i)+'|'+str(dic[i])+'\n')
         fhind.close()
+        return render_template(
+        'deletebuild.html',
+        Title="Sucessfully Deleted"
+    )
 
     return render_template(
         'deletebuild.html',
+        Title="Building Does not Exist"
+
     )
 
 @app.route('/addapart')
@@ -679,7 +702,7 @@ def addapart_post():
     fh=open("apartindex.txt")
     flag=0
     entries=int(fh.readline())
-    for line in islice(fh,1,entries):
+    for line in islice(fh,0,entries):
         ind,no=line.strip().split("|")
         if(ind==index):
             flag=1
